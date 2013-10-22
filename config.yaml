@@ -1,0 +1,27 @@
+options:
+  url:
+    description: The URL to use when providing links to the site.
+    type: string
+    default: http://my-ghost-blog.com
+  host:
+    description: Host to be passed to node's net.Server listen().
+    type: string
+    default: 0.0.0.0
+  port:
+    description: Port to be passed to node's net.Server listen().
+    type: int
+    default: 2368
+  config_file:
+    description: (TODO) Valid ghost config.js file.
+    type: string
+    default: null
+  config_key:
+    description: (TODO) Only used if you supply a config_file.
+  repository:
+    description: (TODO) The repository to pull the ghost source from.
+    type: string
+    default: https://github.com/TryGhost/Ghost.git
+  release_version:
+    description: (TODO) The release tag you would like to deploy from Github.
+    type: string
+    default: latest-release

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+cd /home/ubuntu/ghost
+
+open-port 2368/TCP
+npm start

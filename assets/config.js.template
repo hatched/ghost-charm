@@ -1,0 +1,18 @@
+var path = require('path');
+
+module.exports = {
+  development: {
+    url: '{{url}}',
+    database: {
+      client: 'sqlite3',
+        connection: {
+          filename: path.join(__dirname, '/content/data/ghost-juju.db')
+        },
+        debug: false
+    },
+    server: {
+      host: '{{host}}',
+      port: '{{port}}'
+    }
+  }
+};

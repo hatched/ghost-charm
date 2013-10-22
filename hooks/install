@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+juju-log "Adding Node PPA."
+add-apt-repository ppa:chris-lea/node.js
+
+juju-log "Updating APT."
+apt-get update
+
+juju-log "Installing dependencies."
+apt-get install nodejs rlwrap unzip
+
+juju-log "Fetching Ghost."
+wget "https://github.com/TryGhost/Ghost/releases/download/0.3.3/Ghost-0.3.3.zip" -O /tmp/Ghost-0.3.3.zip
+
+juju-log "Installing Ghost."
+unzip -uo /tmp/Ghost-0.3.3.zip -d /home/ubuntu/ghost
+cd /home/ubuntu/ghost
+npm install --production
+
+juju-log "Installation complete."
