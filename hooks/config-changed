@@ -3,36 +3,10 @@
 var path = require('path'),
     fs = require('fs'),
     sys = require('sys'),
-    exec = require('child_process').exec;
-
+    exec = require('child_process').exec,
+    utils = require('../utils');
+    
 var fileData = fs.readFileSync(
         path.join(__dirname, '../assets/config.js.template'), 'utf8');
 
-exec('config-get --all --format=json', substituteValues);
-
-/**
-  Substitutes the values in the template with the charm
-  configuration values
-
-  @method substituteValues
-  @param {Object} err exec command error object.
-  @param {Object} tmplFile Config file template contents.
-*/
-function substituteValues(err, config) {
-  config = JSON.parse(config);
-
-  Object.keys(config).forEach(function(key) {
-    fileData = fileData.replace('{{' + key + '}}', config[key]);
-  });
-
-  writeConfigToFile(fileData);
-}
-
-/**
-  Writes the supplied string to the configuration file.
-
-  @param {String} fileData The completed configuration file string.
-*/
-function writeConfigToFile(fileData) {
-  fs.writeFileSync('/home/ubuntu/ghost/config.js', fileData, 'utf8');
-}
+exec('config-get --all --format=json', utils.substituteValues);
