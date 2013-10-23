@@ -3,7 +3,7 @@
 set -e
 
 juju-log "Adding Node PPA."
-add-apt-repository ppa:chris-lea/node.js
+add-apt-repository ppa:chris-lea/node.js -y
 
 juju-log "Updating APT."
 apt-get update
