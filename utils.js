@@ -1,3 +1,5 @@
+var path = require('path'),
+    fs = require('fs');
 /**
   Writes the supplied string to the configuration file.
 
@@ -17,6 +19,8 @@ function writeConfigToFile(fileData) {
   @param {Object} tmplFile Config file template contents.
 */
 function substituteValues(err, config) {
+  var fileData = fs.readFileSync(
+    path.join(__dirname, 'assets/config.js.template'), 'utf8');
   config = JSON.parse(config);
 
   Object.keys(config).forEach(function(key) {
