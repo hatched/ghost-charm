@@ -15,8 +15,13 @@ juju-log "Fetching Ghost."
 wget "https://github.com/TryGhost/Ghost/releases/download/0.3.3/Ghost-0.3.3.zip" -O /tmp/Ghost-0.3.3.zip
 
 juju-log "Installing Ghost."
-unzip -uo /tmp/Ghost-0.3.3.zip -d /home/ubuntu/ghost
-cd /home/ubuntu/ghost
+# Copy the upstart script to the proper location
+mv assets/ghost.conf /etc/init/ghost.conf
+chmod 644 /etc/init/ghost.conf
+# Unzip and move to it's proper location
+mkdir -p /var/www/ghost
+unzip -uo /tmp/Ghost-0.3.3.zip -d /var/www/ghost
+cd /var/www/ghost
 npm install --production
 
 juju-log "Installation complete."

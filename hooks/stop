@@ -1,4 +1,3 @@
 #!/bin/bash
 
-set -e
-cd /home/ubuntu/ghost
+service ghost stop

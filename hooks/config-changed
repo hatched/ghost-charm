@@ -34,5 +34,5 @@ function substituteValues(err, config) {
   @param {String} fileData The completed configuration file string.
 */
 function writeConfigToFile(fileData) {
-  fs.writeFileSync('/home/ubuntu/ghost/config.js', fileData, 'utf8');
+  fs.writeFileSync('/var/www/ghost/config.js', fileData, 'utf8');
 }
