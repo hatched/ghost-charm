@@ -22,3 +22,5 @@ function getDBData(err, dbconfig) {
   });
   utils.substituteValues(null, config);
 };
+
+exec('relation-get --format=json', getDBData);
