@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+var dbutils = require('../utils/db'),
+    fs = require('fs'),
+    exec = require('child_process').exec;
+
+// if the mysql switch exists, kill it. Mysql is gone.
+if(!fs.existsSync('mysql')) {
+  exec('rm mysql');
+}
+dbutils.configureSqlite();
+exec('service ghost restart');
