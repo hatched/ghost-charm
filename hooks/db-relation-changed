@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+var dbutils = require('../utils/db'),
+    exec = require('child_process').exec;
+
+// create the mysql switch so config-changed knows to leave db config alone.
+exec('touch mysql');
+exec('relation-get --format=json', dbutils.configureMysql);
+exec('service ghost restart');

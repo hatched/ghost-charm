@@ -13,7 +13,8 @@ var fs = require('fs'),
 */
 function updateConfig(error, config) {
   config = JSON.parse(config);
-  utils.renderTemplate(config, 'config.js.template', 'config.js')
+  utils.renderTemplate(
+    config, 'config.js.template', '/var/www/ghost/config.js')
 }
 
 exec('service ghost stop');

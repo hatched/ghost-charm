@@ -1,4 +1,4 @@
 #!/bin/bash
 
 open-port 2368/TCP
-service ghost start
+service ghost restart

@@ -9,3 +9,6 @@ description: |
     blogging.
 categories:
     - applications
+requires:
+    db:
+        interface: mysql

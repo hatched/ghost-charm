@@ -1,0 +1,12 @@
+module.exports = {
+  database: {
+    client: 'mysql',
+    connection: {
+      host: '{{private-address}}',
+      user: '{{user}}',
+      password: '{{password}}',
+      database: '{{database}}',
+      charset: 'utf8'
+    }
+  },
+}
