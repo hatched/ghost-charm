@@ -1,7 +1,24 @@
 #!/usr/bin/node
-var exec = require('child_process').exec,
-    utils = require('../utils/utils');
+var fs = require('fs'),
+    exec = require('child_process').exec,
+    utils = require('../utils/utils'),
+    dbutils = require('../utils/db');
+
+/* 
+  Update the config file with the config data.
+
+  @method updateConfig
+  @param {Object} error Exec command error object.
+  @param {Object} config Config file template contents.
+*/
+function updateConfig(error, config) {
+  config = JSON.parse(config);
+  utils.renderTemplate(config, 'config.js.template', 'config.js')
+}
 
 exec('service ghost stop');
-exec('config-get --all --format=json', utils.substituteValues);
+if(!fs.existsSync('mysql')) {
+    dbutils.configureSqlite();
+}
+exec('config-get --all --format=json', updateConfig);
 exec('service ghost start');
