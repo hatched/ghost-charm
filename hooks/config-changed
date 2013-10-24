@@ -1,41 +1,25 @@
 #!/usr/bin/node
+var fs = require('fs'),
+    exec = require('child_process').exec,
+    utils = require('../utils/utils'),
+    dbutils = require('../utils/db');
 
-var path = require('path'),
-    fs = require('fs'),
-    sys = require('sys'),
-    exec = require('child_process').exec;
+/* 
+  Update the config file with the config data.
 
-var fileData = fs.readFileSync(
-        path.join(__dirname, '../assets/config.js.template'), 'utf8');
+  @method updateConfig
+  @param {Object} error Exec command error object.
+  @param {Object} config Config file template contents.
+*/
+function updateConfig(error, config) {
+  config = JSON.parse(config);
+  utils.renderTemplate(
+    config, 'config.js.template', '/var/www/ghost/config.js')
+}
 
 exec('service ghost stop');
-exec('config-get --all --format=json', substituteValues);
-
-/**
-  Substitutes the values in the template with the charm
-  configuration values
-
-  @method substituteValues
-  @param {Object} err exec command error object.
-  @param {Object} tmplFile Config file template contents.
-*/
-function substituteValues(err, config) {
-  config = JSON.parse(config);
-
-  Object.keys(config).forEach(function(key) {
-    fileData = fileData.replace('{{' + key + '}}', config[key]);
-  });
-
-  writeConfigToFile(fileData);
+if(!fs.existsSync('mysql')) {
+    dbutils.configureSqlite();
 }
-
-/**
-  Writes the supplied string to the configuration file.
-
-  @param {String} fileData The completed configuration file string.
-*/
-function writeConfigToFile(fileData) {
-  fs.writeFileSync('/var/www/ghost/config.js', fileData, 'utf8');
-}
-
+exec('config-get --all --format=json', updateConfig);
 exec('service ghost start');

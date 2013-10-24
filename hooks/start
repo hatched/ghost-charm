@@ -1,6 +1,4 @@
 #!/bin/bash
 
 open-port 2368/TCP
-
-# upstart start called at the end of the
-# config changed hook
+service ghost restart
