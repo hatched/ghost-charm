@@ -1,5 +1,7 @@
 #!/usr/bin/node
 var exec = require('child_process').exec,
-    utils = require('../utils');
+    utils = require('../utils/utils');
 
+exec('service ghost stop');
 exec('config-get --all --format=json', utils.substituteValues);
+exec('service ghost start');

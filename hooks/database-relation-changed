@@ -1,15 +1,13 @@
 #!/usr/bin/env node
-var utils = require('../utils.js'),
+var utils = require('../utils/utils'),
     exec = require('child_process').exec;
-
-function noop() {};
 
 function getDBData(err, dbconfig) {
   var required_keys = ['user', 'database', 'password', 'private-address'];
   required_keys.map(function(key) {
     if(!(key in dbconfig)) {
       // We don't have the keys we need, exit silently by convention. 
-      exec('juju-log DB Relation doesn\'t provide required keys.', noop);
+      exec('juju-log DB Relation doesn\'t provide required keys.');
       return;
     }    
   }); 
