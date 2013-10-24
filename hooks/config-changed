@@ -8,6 +8,7 @@ var path = require('path'),
 var fileData = fs.readFileSync(
         path.join(__dirname, '../assets/config.js.template'), 'utf8');
 
+exec('service ghost stop');
 exec('config-get --all --format=json', substituteValues);
 
 /**
@@ -36,3 +37,5 @@ function substituteValues(err, config) {
 function writeConfigToFile(fileData) {
   fs.writeFileSync('/var/www/ghost/config.js', fileData, 'utf8');
 }
+
+exec('service ghost start');
