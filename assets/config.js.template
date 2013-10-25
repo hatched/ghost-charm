@@ -1,15 +1,9 @@
-var path = require('path');
+var db = require('./dbconfig').database;
 
 module.exports = {
   development: {
     url: '{{url}}',
-    database: {
-      client: 'sqlite3',
-        connection: {
-          filename: path.join(__dirname, '/content/data/ghost-juju.db')
-        },
-        debug: false
-    },
+    database: db,
     server: {
       host: '{{host}}',
       port: '{{port}}'
