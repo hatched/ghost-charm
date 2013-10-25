@@ -15,6 +15,14 @@ To deploy this charm you will need at a minimum: a cloud environment, working Ju
 And finally expose the Ghost service:
 
     juju expose ghost
+    
+Then get the public IP address for Ghost with
+
+    juju status ghost
+    
+# Using Ghost
+
+Visit `<your URL>:2368/ghost/signup/` to create your username and password. Continue setting up Ghost by following the [usage documentation](http://docs.ghost.org/usage/).
 
 # Configuration
 
