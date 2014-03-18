@@ -1,6 +1,6 @@
 name: ghost
 summary: Ghost allows you to write and publish your own blog.
-maintainer: Jeff Pihach <jeff.pihach@canonical.com>
+maintainer: Jeff Pihach <jpihach@gmail.com>
 description: |
     Ghost is an Open Source application which allows you to write
     and publish your own blog, giving you the tools to make it easy
