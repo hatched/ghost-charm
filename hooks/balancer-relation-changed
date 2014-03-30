@@ -1,0 +1,30 @@
+#!/usr/bin/node
+
+var exec = require('child_process').exec;
+var port, address;
+
+/**
+  Parse the returned config and store the port value.
+
+  @method storePort
+  @param {Object} err Exec function error
+  @param {Object} returnedPort The service's port.
+*/
+function storePort(err, returnedPort) {
+  port = returnedPort;
+  exec('unit-get --format=json private-address', storeAddress);
+}
+
+/**
+  Parse the returned config and store the unit address value.
+
+  @method storeAddress
+  @param {Object} err Exec function error
+  @param {Object} returnedAddress The units private address.
+*/
+function storeAddress(err, returnedAddress) {
+  address = returnedAddress
+  exec('relation-set port=' + port + ' hostname=' + address);
+}
+
+exec('config-get --format=json port', storePort);

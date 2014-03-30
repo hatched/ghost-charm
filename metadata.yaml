@@ -12,3 +12,6 @@ categories:
 requires:
     db:
         interface: mysql
+provides:
+    balancer:
+        interface: http
