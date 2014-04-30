@@ -24,4 +24,5 @@ if(!fs.existsSync('mysql')) {
 }
 
 exec('config-get --all --format=json', updateConfig);
+exec('chown -R ubuntu:ubuntu /var/www/ghost');
 exec('service ghost start');
