@@ -18,7 +18,12 @@ chmod 644 /etc/init/ghost.conf
 # Unzip and move to it's proper location
 mkdir -p /var/www/ghost
 unzip -uo assets/Ghost-0.4.1.zip -d /var/www/ghost
+
 cd /var/www/ghost
 npm install --production
+
+touch /var/log/ghost.log
+chown ubuntu:ubuntu /var/log/ghost.log
+
 
 juju-log "Installation complete."
