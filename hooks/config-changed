@@ -15,9 +15,13 @@ var fs = require('fs'),
 */
 function updateConfig(error, config) {
   try {
-    exec('juju-log "Attempting to close old port..."');
+    exec('juju-log "Closing old port..."');
     oldConfig = require('/var/www/ghost/config.js');
-    exec('close-port ' + oldConfig.development.server.port + '/TCP');
+    exec('close-port ' + oldConfig.development.server.port + '/TCP',
+        function() {
+          exec('juju-log "Old port closed."');
+        }
+    );
   } catch (e) {
     exec('juju-log "config.js does not exist yet; port not closed"');
   }
