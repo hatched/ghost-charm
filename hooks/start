@@ -1,5 +1,5 @@
 #!/bin/bash
 
-open-port 2368/TCP
+open-port `config-get port`/TCP
 
 service ghost restart

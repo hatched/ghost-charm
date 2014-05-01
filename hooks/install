@@ -25,5 +25,4 @@ npm install --production
 touch /var/log/ghost.log
 chown ubuntu:ubuntu /var/log/ghost.log
 
-
 juju-log "Installation complete."
