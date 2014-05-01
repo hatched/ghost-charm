@@ -1,4 +1,5 @@
 #!/usr/bin/node
+// vim: ft=javascript
 
 var fs = require('fs'),
     exec = require('child_process').exec,
@@ -15,7 +16,9 @@ var fs = require('fs'),
 function updateConfig(error, config) {
   config = JSON.parse(config);
   utils.renderTemplate(
-    config, 'config.js.template', '/var/www/ghost/config.js')
+    config, 'config.js.template', '/var/www/ghost/config.js');
+  exec('chown -R ubuntu:ubuntu /var/www/ghost');
+  exec('service ghost start');
 }
 
 exec('service ghost stop');
@@ -24,5 +27,3 @@ if(!fs.existsSync('mysql')) {
 }
 
 exec('config-get --all --format=json', updateConfig);
-exec('chown -R ubuntu:ubuntu /var/www/ghost');
-exec('service ghost start');
