@@ -14,10 +14,22 @@ var fs = require('fs'),
   @param {Object} config Config file template contents.
 */
 function updateConfig(error, config) {
+  try {
+    exec('juju-log "Closing old port..."');
+    oldConfig = require('/var/www/ghost/config.js');
+    exec('close-port ' + oldConfig.development.server.port + '/TCP',
+        function() {
+          exec('juju-log "Old port closed."');
+        }
+    );
+  } catch (e) {
+    exec('juju-log "config.js does not exist yet; port not closed"');
+  }
   config = JSON.parse(config);
   utils.renderTemplate(
     config, 'config.js.template', '/var/www/ghost/config.js');
   exec('chown -R ubuntu:ubuntu /var/www/ghost');
+  exec('open-port ' + config.port + '/TCP');
   exec('service ghost start');
 }
 
