@@ -76,6 +76,9 @@ By default this charm uses Ghost's built in SQLite storage. If you would like to
 horizontally scale your ghost instance you will need to use an external database
 like MySQL.
 
+**If you already have blog posts in the SQLite database they will not be
+deleted, but you will have to manually port them over to the MySQL database.**
+
 First you will need to deploy MySQL into your Juju environment:
 
     $ juju deploy mysql
@@ -88,9 +91,7 @@ You'll then need to relate the Ghost blog service to the MySQL service.
     $ juju add-relation ghost mysql
 
 The charm will handle all settings necessary to use the MySQL database instead
-of the internal SQLite database. If you already have blog posts in the SQLite
-database they will not be deleted, but you will have to manually port them over
-to the MySQL database.
+of the internal SQLite database.
 
 # Horizontal Scaling
 
