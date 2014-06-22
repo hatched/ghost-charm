@@ -17,7 +17,7 @@ function updateConfig(error, config) {
   try {
     exec('juju-log "Closing old port..."');
     oldConfig = require('/var/www/ghost/config.js');
-    exec('close-port ' + oldConfig.development.server.port + '/TCP',
+    exec('close-port ' + oldConfig.production.server.port + '/TCP',
         function() {
           exec('juju-log "Old port closed."');
         }

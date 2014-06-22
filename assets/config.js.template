@@ -1,7 +1,7 @@
 var db = require('./dbconfig').database;
 
 module.exports = {
-  development: {
+  production: {
     url: '{{url}}',
     database: db,
     server: {
