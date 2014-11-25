@@ -7,7 +7,7 @@ var path = require('path'),
   @method renderTemplateData
   @param {Object} data Config data
   @param {String} template The template filename
-    @param {String} filepath Path to render the template out to 
+  @param {String} filepath Path to render the template out to
 */
 function renderTemplate(data, template, filepath) {
   var fileData = fs.readFileSync(path.join('assets', template), 'utf8');

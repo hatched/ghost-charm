@@ -16,7 +16,7 @@ var fs = require('fs'),
 function updateConfig(error, config) {
   try {
     exec('juju-log "Closing old port..."');
-    oldConfig = require('/var/www/ghost/config.js');
+    var oldConfig = require('/var/www/ghost/config.js');
     exec('close-port ' + oldConfig.production.server.port + '/TCP',
         function() {
           exec('juju-log "Old port closed."');
@@ -26,6 +26,7 @@ function updateConfig(error, config) {
     exec('juju-log "config.js does not exist yet; port not closed"');
   }
   config = JSON.parse(config);
+  config = buildEmailConfig(config);
   utils.renderTemplate(
     config, 'config.js.template', '/var/www/ghost/config.js');
   exec('chown -R ubuntu:ubuntu /var/www/ghost');
@@ -36,6 +37,46 @@ function updateConfig(error, config) {
 exec('service ghost stop');
 if(!fs.existsSync('mysql')) {
     dbutils.configureSqlite();
+}
+
+/*
+  Generates the appropriate configuration object for the email provider.
+
+  @method buildEmailConfig
+  @param {Object} config The configuration field values.
+  @return {Object} A modified configuration object containing the correct email
+    configuration options.
+*/
+function buildEmailConfig(config) {
+  // Setting this here to nothing because it'll be set as the real value later
+  // on if needed.
+  config.amazon_ses_port = '';
+  // If we don't have a valid service name or it's an empty value then return
+  // with the currently modified values.
+  var valid_services = ['Mailgun', 'SES', 'Gmail'];
+  if (config.mail_service === '' ||
+      valid_services.indexOf(config.mail_service) < 0) {
+    // If the mail_service field is empty or unset then we want to disable
+    // the email server by leaving the provider field in the config blank.
+    exec(
+        'juju-log "The provided value `' + config.mail_service + '`' +
+        ' is not a valid configuration option for the `mail_service`.' +
+        ' See the configuration details for more information. Skipping' +
+        ' email provider');
+    config.mail_service = '';
+    return config;
+  }
+  // The remaining options require the entire key/value pair to be written
+  // into the template.
+  if (config.from_address !== '') {
+    config.from_address = 'from: ' + config.from_address + ',';
+  }
+  if (config.mail_service === 'SES') {
+    config.amazon_ses_host = 'host: ' + config.amazon_ses_host + ',';
+    config.amazon_ses_port = 'port: 465,';
+  }
+
+  return config;
 }
 
 exec('config-get --all --format=json', updateConfig);

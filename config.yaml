@@ -11,3 +11,40 @@ options:
     description: Port to be passed to node's net.Server listen().
     type: int
     default: 2368
+  mail_service:
+    description: |
+        Pick one of the supported email services to allow Ghost to send emails
+        for things like password recovery and new user acceptance. Valid options
+        will require the corresponding username and password fields filled out
+        below. The supported values are 'Mailgun', 'SES', and 'Gmail'.
+        An empty value will remove the configuration from Ghost.
+    type: string
+    default: ''
+  mailserver_username:
+    description: |
+        Username for the mail service chosen above. Information on where to find
+        these credentials can be found here: http://support.ghost.org/mail/ .
+    type: string
+    default: ''
+  mailserver_password:
+    description: |
+        Password for the mail service chosen above. Information on where to find
+        these credentials can be found here: http://support.ghost.org/mail/ .
+    type: string
+    default: ''
+  amazon_ses_host:
+    description: |
+        The host value for your Amazon SES account. This is only necessary if
+        you chose this option in the mail_service field above.
+    type: string
+    default: ''
+  from_address:
+    description: |
+        By default the ‘from’ address for mail sent from Ghost will be set to
+        "Blog Title <ghost@your-ghost-blog.com>" where 'Blog Title' is the title
+        you have set in settings, and 'your-ghost-blog.com' is the value from
+        the host configuration value above. You can override this value here.
+        Supported formats are 'myemail@example.com' or
+        'Custom Name <myemail@example.com'.
+    type: string
+    default: ''
