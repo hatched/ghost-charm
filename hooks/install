@@ -17,7 +17,7 @@ cp -f assets/ghost.conf /etc/init/ghost.conf
 chmod 644 /etc/init/ghost.conf
 # Unzip and move to it's proper location
 mkdir -p /var/www/ghost
-unzip -uo assets/Ghost-0.5.3.zip -d /var/www/ghost
+unzip -uo assets/Ghost-0.5.5.zip -d /var/www/ghost
 
 cd /var/www/ghost
 npm install --production
