@@ -3,7 +3,10 @@
 set -e
 
 juju-log "Adding Node PPA."
-add-apt-repository ppa:chris-lea/node.js -y
+wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+
+echo "deb https://deb.nodesource.com/node $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+echo "deb-src https://deb.nodesource.com/node $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list
 
 juju-log "Updating APT."
 apt-get update
