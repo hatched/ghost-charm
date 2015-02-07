@@ -11,6 +11,11 @@ options:
     description: Port to be passed to node's net.Server listen().
     type: int
     default: 2368
+  release_location:
+    description: |
+        Location of the Ghost blogging platform release archive to deploy.
+    type: string
+    default: https://github.com/TryGhost/Ghost/releases/download/0.5.8/Ghost-0.5.8.zip
   mail_service:
     description: |
         Pick one of the supported email services to allow Ghost to send emails
