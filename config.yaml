@@ -15,7 +15,7 @@ options:
     description: |
         Location of the Ghost blogging platform release archive to deploy.
     type: string
-    default: https://github.com/TryGhost/Ghost/releases/download/0.5.8/Ghost-0.5.8.zip
+    default: https://github.com/TryGhost/Ghost/releases/download/0.5.10/Ghost-0.5.10.zip
   mail_service:
     description: |
         Pick one of the supported email services to allow Ghost to send emails
